@@ -12,6 +12,8 @@ Este projeto é destinado a testar APIs utilizando PactumJS, GraphQL, Mocha e Su
 - pactum
 - pactum-matchers
 - mocha
+- graphql
+- supertest
 
 ## Instalação
 
