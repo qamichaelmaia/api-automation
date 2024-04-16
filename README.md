@@ -1,4 +1,4 @@
-# API Testing Project
+# Automação de API: Conhecendo GraphQL, Supertest e PactJS
 
 Este projeto é destinado a testar APIs utilizando PactumJS, GraphQL, Mocha e Supertest. Os testes são focados em operações de usuário e login.
 
@@ -42,3 +42,19 @@ npm test
 
 - Testes de Login
     Os testes de login verificam se a autenticação e a autorização funcionam corretamente. Isso inclui testar se um usuário pode fazer login com credenciais válidas e se um token de acesso é retornado.
+
+## Chave utilizada
+
+```bash
+docker run --name pactbroker-db -e POSTGRES_PASSWORD=ebac -e POSTGRES_USER=ebac -e PGDATA=/var/lib/postgresql/data/pgdata -v pgdata:/var/lib/postfresql/data -d postgres
+
+docker run -it --link pactbroker-db:postgres --rm postgres sh -c 'exec psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U ebac'
+
+CREATE USER pactbrokeruser WITH PASSWORD 'root';
+
+CREATE DATABASE pactbroker WITH OWNER pactbrokeruser ;
+
+GRANT ALL PRIVILEGES ON DATABASE pactbroker TO pactbrokeruser;
+
+docker run --name pactbroker --link pactbroker-db:postgres -e PACT_BROKER_DATABASE_USERNAME=pactbrokeruser -e PACT_BROKER_DATABASE_PASSWORD=root -e PACT_BROKER_DATABASE_HOST=postgres -e PACT_BROKER_DATABASE_NAME=pactbroker -d -p 9292:9292 pactfoundation/pact-broker
+```
